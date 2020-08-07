@@ -4,7 +4,7 @@
         <name>Tabacaria.Api</name>
     </assembly>
     <members>
-        <member name="M:Tabacaria.Api.Controllers.EssenceController.InsertEssence(Tabacaria.Api.ViewModels.EssenceViewModel)">
+        <member name="M:Tabacaria.Api.Controllers.EssenceController.CreateEssence(Tabacaria.Api.ViewModels.EssenceViewModel)">
             <summary>
             Insert an essence
             </summary>

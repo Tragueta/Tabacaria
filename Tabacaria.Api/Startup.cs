@@ -1,14 +1,15 @@
 using AutoMapper;
 using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using System.IO;
 using System.Reflection;
+using Tabacaria.Domain.Handlers;
 
 namespace Tabacaria.Api
 {
@@ -18,6 +19,9 @@ namespace Tabacaria.Api
         {
             services.AddControllers()
                     .AddFluentValidation();
+
+            //services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddMediatR(Assembly.GetAssembly(typeof(CreateEssenceHandler)));
 
             services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerGen(options =>

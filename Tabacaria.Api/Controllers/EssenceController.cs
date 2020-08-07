@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 using Tabacaria.Api.ViewModels;
 using Tabacaria.Domain.Commands;
@@ -13,10 +15,12 @@ namespace Tabacaria.Api.Controllers
     public class EssenceController : ControllerBase
     {
         private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
-        public EssenceController(IMapper mapper)
+        public EssenceController(IMapper mapper, IMediator mediator)
         {
             _mapper = mapper;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -25,12 +29,17 @@ namespace Tabacaria.Api.Controllers
         /// <param name="essenceVM"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult> InsertEssence(EssenceViewModel essenceVM)
+        public ActionResult CreateEssence(EssenceViewModel essenceVM)
         {
-            var myDTO = _mapper.Map<EssenceDTO>(essenceVM);
-            var essenceCommand = new InsertEssenceCommand(myDTO);
-
-            return null;
+            try
+            {
+                var response = _mediator.Send(new CreateEssenceCommand(_mapper.Map<EssenceDTO>(essenceVM)));
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.InnerException.Message);
+            }
         }
     }
 }
