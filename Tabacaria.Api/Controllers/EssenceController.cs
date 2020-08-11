@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Tabacaria.Api.ViewModels;
 using Tabacaria.Domain.Commands;
@@ -29,12 +30,16 @@ namespace Tabacaria.Api.Controllers
         /// <param name="essenceVM"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult CreateEssence(EssenceViewModel essenceVM)
+        public async Task<ActionResult> CreateEssence(EssenceViewModel essenceVM)
         {
             try
             {
-                var response = _mediator.Send(new CreateEssenceCommand(_mapper.Map<EssenceDTO>(essenceVM)));
-                return Ok(response);
+                var response = await _mediator.Send(new CreateEssenceCommand(_mapper.Map<EssenceDTO>(essenceVM)));
+
+                if (!response.Success)
+                    return BadRequest(response.Message);
+
+                return Ok(response.ResponseObject);
             }
             catch (Exception ex)
             {

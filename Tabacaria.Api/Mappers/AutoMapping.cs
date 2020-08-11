@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using System;
-using System.Runtime.CompilerServices;
 using Tabacaria.Api.ViewModels;
+using Tabacaria.Domain.Commands;
 using Tabacaria.Domain.DTOs;
+using Tabacaria.Domain.Entities;
 using Tabacaria.Domain.Enumerators;
 
 namespace Tabacaria.Api.Mappers
@@ -19,6 +20,8 @@ namespace Tabacaria.Api.Mappers
                 .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Value))
                 .ForMember(dest => dest.Flavor, opt => opt.MapFrom(src => src.Flavor))
                 .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
+
+            CreateMap<CreateEssenceCommand, EssenceEntity>();
         }
 
         private T ValidateEnumerator<T>(T enumValue)

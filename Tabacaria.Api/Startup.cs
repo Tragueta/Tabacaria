@@ -10,6 +10,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using Tabacaria.Domain.Handlers;
+using Tabacaria.Domain.Utils.NotificationPattern;
 
 namespace Tabacaria.Api
 {
@@ -20,8 +21,9 @@ namespace Tabacaria.Api
             services.AddControllers()
                     .AddFluentValidation();
 
-            //services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetAssembly(typeof(CreateEssenceHandler)));
+
+            services.AddTransient<Domain.Interfaces.INotification, Notification>();
 
             services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerGen(options =>

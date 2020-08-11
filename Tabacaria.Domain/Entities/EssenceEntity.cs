@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Tabacaria.Domain.Commands;
 using Tabacaria.Domain.Enumerators;
 using Tabacaria.Domain.Models;
 
@@ -16,5 +17,6 @@ namespace Tabacaria.Domain.Entities
         public decimal Value { get; set; }
         public string Flavor { get; set; }
         public int Quantity { get; set; }
+
     }
 }
