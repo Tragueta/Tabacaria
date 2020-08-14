@@ -30,12 +30,14 @@ namespace Tabacaria.Api.Controllers
         /// <param name="essenceVM"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult> CreateEssence(EssenceViewModel essenceVM)
+        public async Task<ActionResult> CreateEssence(CreateEssenceCommand request)
         {
             try
             {
-                var response = await _mediator.Send(new CreateEssenceCommand(_mapper.Map<EssenceDTO>(essenceVM)));
+                //return CriaResponse(request);
 
+                // Colocar no BaseController
+                var response = await _mediator.Send(request);
                 if (!response.Success)
                     return BadRequest(response.Message);
 

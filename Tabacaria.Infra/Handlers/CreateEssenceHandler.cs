@@ -11,13 +11,10 @@ namespace Tabacaria.Domain.Handlers
 {
     public class CreateEssenceHandler : IRequestHandler<CreateEssenceCommand, Response<EssenceEntity>>
     {
-        private readonly Interfaces.INotification _notification;
         private readonly IMapper _mapper;
 
-        public CreateEssenceHandler(Interfaces.INotification notification,
-                                    IMapper mapper)
+        public CreateEssenceHandler(IMapper mapper)
         {
-            _notification = notification;
             _mapper = mapper;
         }
 
@@ -25,11 +22,10 @@ namespace Tabacaria.Domain.Handlers
         {
             try
             {
-                if (!request.Valid)
-                {
-                    _notification.AddNotifications(request.ValidationResult);
-                    return new Response<EssenceEntity>(false, _notification.GetErrorMessages(), null);
-                }
+                // Chamada repositorio
+                //  var obj =_mapper.Map<EssenceEntity>(request);
+                // var responseInsert = _repositorio.Insert(obj);
+                // return responseInsert;
 
                 return new Response<EssenceEntity>(true, "The essence was successfully created", _mapper.Map<EssenceEntity>(request));
             }

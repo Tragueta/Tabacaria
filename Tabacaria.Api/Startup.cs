@@ -1,16 +1,14 @@
 using AutoMapper;
-using FluentValidation.AspNetCore;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Product.Foundation.Api.Configuration;
+using Product.Foundation.Domain.Configuration;
 using System;
 using System.IO;
 using System.Reflection;
-using Tabacaria.Domain.Handlers;
-using Tabacaria.Domain.Utils.NotificationPattern;
 
 namespace Tabacaria.Api
 {
@@ -18,12 +16,8 @@ namespace Tabacaria.Api
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers()
-                    .AddFluentValidation();
-
-            services.AddMediatR(Assembly.GetAssembly(typeof(CreateEssenceHandler)));
-
-            services.AddTransient<Domain.Interfaces.INotification, Notification>();
+            services.AddApiBehaviorConfiguration();
+            services.AddDependencyInjection();
 
             services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerGen(options =>
