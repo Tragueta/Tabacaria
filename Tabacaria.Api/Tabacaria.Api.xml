@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Tabacaria.Api</name>
+    </assembly>
+    <members>
+        <member name="M:Tabacaria.Api.Controllers.EssenceController.CreateEssence(Tabacaria.Api.ViewModels.EssenceViewModel)">
+            <summary>
+            Insert an essence
+            </summary>
+            <param name="essenceVM"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
