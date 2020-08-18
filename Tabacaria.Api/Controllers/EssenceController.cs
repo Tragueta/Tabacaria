@@ -1,26 +1,23 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Product.Foundation.Api.Controller;
 using System;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Tabacaria.Api.ViewModels;
 using Tabacaria.Domain.Commands;
-using Tabacaria.Domain.DTOs;
+using Tabacaria.Domain.Entities;
+using Tabacaria.Domain.Utils.HttpUtils;
 
 namespace Tabacaria.Api.Controllers
 {
     [ApiController]
     [Route("api/essence")]
     [Consumes("application/json")]
-    public class EssenceController : ControllerBase
+    public class EssenceController : TabacariaController
     {
-        private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
-        public EssenceController(IMapper mapper, IMediator mediator)
+        public EssenceController(IMediator mediator) : base(mediator)
         {
-            _mapper = mapper;
             _mediator = mediator;
         }
 
@@ -30,18 +27,11 @@ namespace Tabacaria.Api.Controllers
         /// <param name="essenceVM"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult> CreateEssence(CreateEssenceCommand request)
+        public async Task<ActionResult<Response<EssenceEntity>>> CreateEssence(CreateEssenceCommand request)
         {
             try
             {
-                //return CriaResponse(request);
-
-                // Colocar no BaseController
-                var response = await _mediator.Send(request);
-                if (!response.Success)
-                    return BadRequest(response.Message);
-
-                return Ok(response.ResponseObject);
+                return await CreateRequest<EssenceEntity>(request);
             }
             catch (Exception ex)
             {
