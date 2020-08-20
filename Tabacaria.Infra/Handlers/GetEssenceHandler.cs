@@ -1,40 +1,39 @@
 ﻿using AutoMapper;
 using MediatR;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Tabacaria.Domain.Commands;
 using Tabacaria.Domain.Entities;
 using Tabacaria.Domain.Interfaces.Repositories;
-using Tabacaria.Domain.Models;
+using Tabacaria.Domain.Queries;
 using Tabacaria.Domain.Utils.HttpUtils;
 
-namespace Tabacaria.Domain.Handlers
+namespace Tabacaria.Infra.Handlers
 {
-    public class CreateEssenceHandler : IRequestHandler<CreateEssenceCommand, Response<EssenceEntity>>
+    public class GetEssenceHandler : IRequestHandler<GetEssenceQuery, Response<IEnumerable<EssenceEntity>>>
     {
         private readonly IEssenceRepository _essenceRepository;
         private readonly IMapper _mapper;
 
-        public CreateEssenceHandler(
+        public GetEssenceHandler(
             IEssenceRepository essenceRepository,
             IMapper mapper)
         {
             _essenceRepository = essenceRepository;
             _mapper = mapper;
         }
-
-        public async Task<Response<EssenceEntity>> Handle(CreateEssenceCommand request, CancellationToken cancellationToken)
+        public async Task<Response<IEnumerable<EssenceEntity>>> Handle(GetEssenceQuery request, CancellationToken cancellationToken)
         {
             try
             {
                 //TODO: MOCK
-                var responseInsert = _essenceRepository.Insert(_mapper.Map<EssenceEntity>(request));
+                var responseGet = _essenceRepository.GetAllEssences();
 
-                if (responseInsert.Id == 0)
-                    return new Response<EssenceEntity>(false, "Failed to insert the new essence", null);
+                if (responseGet == null)
+                    return new Response<IEnumerable<EssenceEntity>>(false, "Failed to insert the new essence", null);
 
-                return new Response<EssenceEntity>(true, "Success to insert the new essence", responseInsert);
+                return new Response<IEnumerable<EssenceEntity>>(true, "Success to insert the new essence", responseGet);
             }
             catch (Exception)
             {

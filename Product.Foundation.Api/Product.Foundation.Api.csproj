@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Tabacaria.Domain\Tabacaria.Domain.csproj" />
     <ProjectReference Include="..\Tabacaria.Infra\Tabacaria.Infra.csproj" />
   </ItemGroup>

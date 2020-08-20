@@ -9,6 +9,8 @@ using Product.Foundation.Domain.Configuration;
 using System;
 using System.IO;
 using System.Reflection;
+using Tabacaria.Domain.Interfaces.Repositories;
+using Tabacaria.Infra.Repositories;
 
 namespace Tabacaria.Api
 {

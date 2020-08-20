@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Product.Foundation.Api.Controller;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tabacaria.Domain.Commands;
 using Tabacaria.Domain.Entities;
+using Tabacaria.Domain.Queries;
 using Tabacaria.Domain.Utils.HttpUtils;
 
 namespace Tabacaria.Api.Controllers
@@ -32,6 +34,19 @@ namespace Tabacaria.Api.Controllers
             try
             {
                 return await CreateRequest<EssenceEntity>(request);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.InnerException.Message);
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<Response<IEnumerable<EssenceEntity>>>> GetAllEssences()
+        {
+            try
+            {
+                return await CreateRequest<IEnumerable<EssenceEntity>>(new GetEssenceQuery());
             }
             catch (Exception ex)
             {

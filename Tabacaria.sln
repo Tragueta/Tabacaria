@@ -29,7 +29,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Infra", "3-Infra", "{014A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4-Test", "4-Test", "{0F82FF4D-2AF0-4ACB-99F9-88DCBDCFAA84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Product.Foundation.Api", "Product.Foundation.Api\Product.Foundation.Api.csproj", "{693E80E0-6D07-4067-8F3A-E2B717975D95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.Foundation.Api", "Product.Foundation.Api\Product.Foundation.Api.csproj", "{693E80E0-6D07-4067-8F3A-E2B717975D95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Product.Foundation.Domain", "Product.Foundation.Domain\Product.Foundation.Domain.csproj", "{B2B53CE1-925C-48DB-929C-301B48BC351D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{693E80E0-6D07-4067-8F3A-E2B717975D95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{693E80E0-6D07-4067-8F3A-E2B717975D95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{693E80E0-6D07-4067-8F3A-E2B717975D95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2B53CE1-925C-48DB-929C-301B48BC351D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2B53CE1-925C-48DB-929C-301B48BC351D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2B53CE1-925C-48DB-929C-301B48BC351D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2B53CE1-925C-48DB-929C-301B48BC351D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +77,7 @@ Global
 		{014A65FC-2CDC-4706-BE58-A19F1D0518AC} = {F4AF67AC-778D-4CB0-B936-A45ED118A61C}
 		{0F82FF4D-2AF0-4ACB-99F9-88DCBDCFAA84} = {F4AF67AC-778D-4CB0-B936-A45ED118A61C}
 		{693E80E0-6D07-4067-8F3A-E2B717975D95} = {64896F8C-8539-4A0A-8715-1164615B0AD0}
+		{B2B53CE1-925C-48DB-929C-301B48BC351D} = {1DB6ED06-4490-4819-BDCB-FBA1B2296C8D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E1BDB968-9DA5-437F-BEB2-62862B5DE235}
