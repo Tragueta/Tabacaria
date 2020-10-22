@@ -8,7 +8,7 @@
             <summary>
             Insert an essence
             </summary>
-            <param name="essenceVM"></param>
+            <param name="request"></param>
             <returns></returns>
         </member>
     </members>

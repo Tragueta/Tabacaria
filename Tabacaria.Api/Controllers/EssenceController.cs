@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Product.Foundation.Api.Controller;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tabacaria.Domain.Commands;
@@ -16,42 +15,21 @@ namespace Tabacaria.Api.Controllers
     [Consumes("application/json")]
     public class EssenceController : TabacariaController
     {
-        private readonly IMediator _mediator;
-
-        public EssenceController(IMediator mediator) : base(mediator)
-        {
-            _mediator = mediator;
-        }
+        public EssenceController(IMediator mediator) : base(mediator) { }
 
         /// <summary>
         /// Insert an essence
         /// </summary>
-        /// <param name="essenceVM"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<Response<EssenceEntity>>> CreateEssence(CreateEssenceCommand request)
-        {
-            try
-            {
-                return await CreateRequest<EssenceEntity>(request);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.InnerException.Message);
-            }
-        }
+        public async Task<ActionResult<Response<EssenceEntity>>> CreateEssence(CreateEssenceCommand request) => await CreateRequest<EssenceEntity>(request);
 
         [HttpGet]
-        public async Task<ActionResult<Response<IEnumerable<EssenceEntity>>>> GetAllEssences()
-        {
-            try
-            {
-                return await CreateRequest<IEnumerable<EssenceEntity>>(new GetEssenceQuery());
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.InnerException.Message);
-            }
-        }
+        public async Task<ActionResult<Response<IEnumerable<EssenceEntity>>>> GetAllEssences() => await CreateRequest<IEnumerable<EssenceEntity>>(new GetEssenceQuery());
+
+        [Route("testando")]
+        [HttpPost]
+        public async Task<ActionResult<Response<EssenceEntity>>> RemoverTestando(RemoverTesteComando comando) => await CreateRequest<EssenceEntity>(comando);
     }
 }

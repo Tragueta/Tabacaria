@@ -27,7 +27,6 @@ namespace Tabacaria.Infra.Handlers
         {
             try
             {
-                //TODO: MOCK
                 var responseGet = _essenceRepository.GetAllEssences();
 
                 if (responseGet == null)

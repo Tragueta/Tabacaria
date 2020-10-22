@@ -1,14 +1,10 @@
-﻿using MediatR;
-using Tabacaria.Domain.Entities;
-using Tabacaria.Domain.Models;
-using Tabacaria.Domain.Utils.HttpUtils;
+﻿using Tabacaria.Domain.Entities;
 
 namespace Tabacaria.Domain.Commands
 {
-    public class CreateEssenceCommand : Product, IRequest<Response<EssenceEntity>>
+    public class CreateEssenceCommand : ProductCommand<EssenceEntity>
     {
         public string Flavor { get; set; }
         public int Quantity { get; set; }
-
     }
 }

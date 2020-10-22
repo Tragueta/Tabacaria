@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using System.Collections.Generic;
 using Tabacaria.Domain.Entities;
-using Tabacaria.Domain.Models;
 using Tabacaria.Domain.Utils.HttpUtils;
 
 namespace Tabacaria.Domain.Queries

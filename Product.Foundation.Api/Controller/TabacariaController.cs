@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 using Tabacaria.Domain.Utils.HttpUtils;
 
@@ -16,14 +17,19 @@ namespace Product.Foundation.Api.Controller
 
         protected async Task<ActionResult> CreateRequest<T>(object requestObject) where T : class
         {
-            var response = await _mediator.Send(requestObject);
+            try
+            {
+                var response = (Response<T>)_mediator.Send(requestObject).GetAwaiter().GetResult();
 
-            var castObject = (Response<T>)response;
+                if (!response.Success)
+                    return BadRequest(response);
 
-            if (!castObject.Success)
-                return BadRequest(castObject);
-
-            return Ok(castObject);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new Response<T>(false, ex.Message, null));
+            }
         }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Tabacaria.Domain.Commands;
-using Tabacaria.Domain.Enumerators;
-using Tabacaria.Domain.Models;
+﻿using Tabacaria.Domain.Enumerators;
 
 namespace Tabacaria.Domain.Entities
 {
