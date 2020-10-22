@@ -1,50 +1,35 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Net.Http;
+using Product.Foundation.Api.Controller;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Tabacaria.Api.ViewModels;
 using Tabacaria.Domain.Commands;
-using Tabacaria.Domain.DTOs;
+using Tabacaria.Domain.Entities;
+using Tabacaria.Domain.Queries;
+using Tabacaria.Domain.Utils.HttpUtils;
 
 namespace Tabacaria.Api.Controllers
 {
     [ApiController]
     [Route("api/essence")]
     [Consumes("application/json")]
-    public class EssenceController : ControllerBase
+    public class EssenceController : TabacariaController
     {
-        private readonly IMapper _mapper;
-        private readonly IMediator _mediator;
-
-        public EssenceController(IMapper mapper, IMediator mediator)
-        {
-            _mapper = mapper;
-            _mediator = mediator;
-        }
+        public EssenceController(IMediator mediator) : base(mediator) { }
 
         /// <summary>
         /// Insert an essence
         /// </summary>
-        /// <param name="essenceVM"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult> CreateEssence(EssenceViewModel essenceVM)
-        {
-            try
-            {
-                var response = await _mediator.Send(new CreateEssenceCommand(_mapper.Map<EssenceDTO>(essenceVM)));
+        public async Task<ActionResult<Response<EssenceEntity>>> CreateEssence(CreateEssenceCommand request) => await CreateRequest<EssenceEntity>(request);
 
-                if (!response.Success)
-                    return BadRequest(response.Message);
+        [HttpGet]
+        public async Task<ActionResult<Response<IEnumerable<EssenceEntity>>>> GetAllEssences() => await CreateRequest<IEnumerable<EssenceEntity>>(new GetEssenceQuery());
 
-                return Ok(response.ResponseObject);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.InnerException.Message);
-            }
-        }
+        [Route("testando")]
+        [HttpPost]
+        public async Task<ActionResult<Response<EssenceEntity>>> RemoverTestando(RemoverTesteComando comando) => await CreateRequest<EssenceEntity>(comando);
     }
 }

@@ -3,9 +3,9 @@ using Tabacaria.Domain.Commands;
 
 namespace Tabacaria.Domain.Utils.Validators
 {
-    public class EssenceValidator : BaseValidator<CreateEssenceCommand>
+    public class RemoverTesteValidator : AbstractValidator<RemoverTesteComando>
     {
-        public EssenceValidator()
+        public RemoverTesteValidator()
         {
             RuleFor(x => x.Type).NotNull();
 
@@ -17,9 +17,7 @@ namespace Tabacaria.Domain.Utils.Validators
 
             RuleFor(x => x.Value).GreaterThan(0);
 
-            RuleFor(x => x.Flavor).NotEmpty();
-
-            RuleFor(x => x.Quantity).GreaterThan(0);
+            RuleFor(x => x.RemoverTeste).GreaterThan(0);
         }
     }
 }

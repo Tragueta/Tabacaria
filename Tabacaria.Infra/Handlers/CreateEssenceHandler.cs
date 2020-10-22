@@ -5,19 +5,22 @@ using System.Threading;
 using System.Threading.Tasks;
 using Tabacaria.Domain.Commands;
 using Tabacaria.Domain.Entities;
+using Tabacaria.Domain.Interfaces.Repositories;
 using Tabacaria.Domain.Utils.HttpUtils;
 
 namespace Tabacaria.Domain.Handlers
 {
     public class CreateEssenceHandler : IRequestHandler<CreateEssenceCommand, Response<EssenceEntity>>
     {
-        private readonly Interfaces.INotification _notification;
+        //TODO: CRIAR CLASSE PARA IMPLEMENTAR "IRequestHandler", IMPLEMENTAR UMA FUNCTION QUE IREI RECEBER DE PARAMETRO E MOVER PARA CAMADA DOMAIN
+        private readonly IEssenceRepository _essenceRepository;
         private readonly IMapper _mapper;
 
-        public CreateEssenceHandler(Interfaces.INotification notification,
-                                    IMapper mapper)
+        public CreateEssenceHandler(
+            IEssenceRepository essenceRepository,
+            IMapper mapper)
         {
-            _notification = notification;
+            _essenceRepository = essenceRepository;
             _mapper = mapper;
         }
 
@@ -25,13 +28,12 @@ namespace Tabacaria.Domain.Handlers
         {
             try
             {
-                if (!request.Valid)
-                {
-                    _notification.AddNotifications(request.ValidationResult);
-                    return new Response<EssenceEntity>(false, _notification.GetErrorMessages(), null);
-                }
+                var responseInsert = _essenceRepository.Insert(_mapper.Map<EssenceEntity>(request));
 
-                return new Response<EssenceEntity>(true, "The essence was successfully created", _mapper.Map<EssenceEntity>(request));
+                if (responseInsert.Id == 0)
+                    return new Response<EssenceEntity>(false, "Failed to insert the new essence", null);
+
+                return new Response<EssenceEntity>(true, "Success to insert the new essence", responseInsert);
             }
             catch (Exception)
             {

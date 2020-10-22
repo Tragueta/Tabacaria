@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Permissions;
-using System.Threading.Tasks;
+﻿using MediatR;
 using Tabacaria.Domain.Enumerators;
+using Tabacaria.Domain.Utils.HttpUtils;
 
-namespace Tabacaria.Api.ViewModels
+namespace Tabacaria.Domain.Commands
 {
-    public class ProductViewModel
+    public class ProductCommand<T> : IRequest<Response<T>> where T : class
     {
         public ProductType Type { get; set; }
         public string Name { get; set; }
