@@ -1,11 +1,10 @@
 ﻿using MediatR;
-using System.Collections.Generic;
-using Tabacaria.Domain.Entities;
-using Tabacaria.Domain.Utils.HttpUtils;
+using Tabacaria.Foundation.Domain.Entites;
 
 namespace Tabacaria.Domain.Queries
 {
-    public class GetEssenceQuery : IRequest<Response<IEnumerable<EssenceEntity>>>
+    //public class GetEssenceQuery : IRequest<Response<IEnumerable<EssenceEntity>>>
+    public class GetEssenceQuery : IRequest<Response>
     {
     }
 }

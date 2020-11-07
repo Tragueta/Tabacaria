@@ -6,13 +6,10 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using Tabacaria.Domain.Handlers;
-using Tabacaria.Domain.Interfaces.Repositories;
-using Tabacaria.Domain.Utils.HttpUtils;
-using Tabacaria.Domain.Utils.Validators;
-using Tabacaria.Infra.Repositories;
+using Tabacaria.Foundation.Domain.Entites;
+using Tabacaria.Foundation.Domain.Validators;
 
-namespace Product.Foundation.Api.Configuration
+namespace Tabacaria.Foundation.Api.Configuration
 {
     public static class Configuration
     {
@@ -32,7 +29,8 @@ namespace Product.Foundation.Api.Configuration
                             .SelectMany(x => x)
                             .ToList();
 
-                            return new BadRequestObjectResult(new Response<dynamic>(false, "error", errors));
+                            //return new BadRequestObjectResult(new Response<dynamic>(false, "error", errors));
+                            return new BadRequestObjectResult(new Response(false, "error", errors));
                         };
                     })
                     .AddFluentValidation();
@@ -40,20 +38,33 @@ namespace Product.Foundation.Api.Configuration
             return services;
         }
 
-        public static IServiceCollection AddDependencyInjection(this IServiceCollection services)
-        {
-            services.AddMediatR(Assembly.GetAssembly(typeof(CreateEssenceHandler)));
-            services.AddScoped<IEssenceRepository, EssenceRepository>();
-            AddValidationsInjection(services);
+        //public static IServiceCollection AddDependencyInjection(this IServiceCollection services)
+        //{
+        //    services.AddMediatR(Assembly.GetAssembly(typeof(CreateEssenceHandler)));
+        //    services.AddScoped<IEssenceRepository, EssenceRepository>();
+        //    AddValidationsInjection(services);
 
-            return services;
-        }
+        //    return services;
+        //}
+        //public static IServiceCollection AddMediatRAssemblies(this IServiceCollection services)
+        //{
+        //    var assemblies = Assembly.GetExecutingAssembly().GetReferencedAssemblies().Select((item) => Assembly.Load(item)).ToArray();
+        //    assemblies = assemblies.Where(a => a.GetName().Name.StartsWith("Tabacaria")).ToArray();
+        //    services.AddMediatR(assemblies);
+        //    return services;
+        //}
 
         public static void AddFluentValidationCulture(this IServiceCollection services, string culture) => ValidatorOptions.LanguageManager.Culture = new CultureInfo(culture);
 
-        private static void AddValidationsInjection(IServiceCollection services)
+        //private static void AddValidationsInjection(IServiceCollection services)
+        //{
+        //    services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<BaseValidator<EssenceValidator>>());
+        //}
+        public static IServiceCollection AddValidationsInjection(this IServiceCollection services)
         {
-            services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<BaseValidator<EssenceValidator>>());
+            services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<SampleVallidator>());
+
+            return services;
         }
     }
 }
