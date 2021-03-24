@@ -31,22 +31,5 @@ namespace Tabacaria.Foundation.Api.Controller
                 return BadRequest(new Response(false, ex.Message, null));
             }
         }
-
-        //protected async Task<ActionResult> CreateRequest<T>(object requestObject) where T : class
-        //{
-        //    try
-        //    {
-        //        var response = (Response<T>)_mediator.Send(requestObject).GetAwaiter().GetResult();
-
-        //        if (!response.Success)
-        //            return BadRequest(response);
-
-        //        return Ok(response);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(new Response<T>(false, ex.Message, null));
-        //    }
-        //}
     }
 }

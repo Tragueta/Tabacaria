@@ -3,7 +3,6 @@ using Tabacaria.Domain.Commands;
 
 namespace Tabacaria.Domain.Utils.Validators
 {
-    //public class EssenceValidator : BaseValidator<CreateEssenceCommand>
     public class EssenceValidator : AbstractValidator<CreateEssenceCommand>
     {
         public EssenceValidator()

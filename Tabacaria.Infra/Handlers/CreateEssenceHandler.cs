@@ -34,22 +34,5 @@ namespace Tabacaria.Domain.Handlers
             return new Response(true, "Success to insert the new essence", responseInsert);
 
         }
-
-        //public async Task<Response> Handle(CreateEssenceCommand request, CancellationToken cancellationToken)
-        //{
-        //    try
-        //    {
-        //        var responseInsert = _essenceRepository.Insert(_mapper.Map<EssenceEntity>(request));
-
-        //        if (responseInsert.Id == 0)
-        //            return new Response(false, "Failed to insert the new essence", null);
-
-        //        return new Response(true, "Success to insert the new essence", responseInsert);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw new Exception("An internal error occured", null);
-        //    }
-        //}
     }
 }

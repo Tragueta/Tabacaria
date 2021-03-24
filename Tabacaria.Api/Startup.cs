@@ -1,4 +1,6 @@
 using AutoMapper;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,16 +11,8 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using FluentValidation;
-using FluentValidation.AspNetCore;
 using Tabacaria.Domain.Utils.Validators;
 using Tabacaria.Foundation.Api.Configuration;
-using Tabacaria.Domain.Handlers;
-using Tabacaria.Foundation.Domain.Handler;
-using Tabacaria.Domain.Commands;
-using Tabacaria.Infra.Handlers;
-using Tabacaria.Domain.Interfaces.Repositories;
-using Tabacaria.Infra.Repositories;
 using Tabacaria.Infra.Setup;
 
 namespace Tabacaria.Api

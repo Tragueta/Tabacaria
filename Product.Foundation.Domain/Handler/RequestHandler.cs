@@ -6,9 +6,6 @@ using Tabacaria.Foundation.Domain.Entites;
 
 namespace Tabacaria.Foundation.Domain.Handler
 {
-
-    //TODO: Essa sera a classe base do IRequestHandler
-
     public abstract class RequestHandlerBase<T> : IRequestHandler<T, Response> where T : IRequest<Response>
     {
         public Task<Response> Handle(T request, CancellationToken cancellationToken)
@@ -25,9 +22,5 @@ namespace Tabacaria.Foundation.Domain.Handler
         }
 
         public abstract Task<Response> SafeExecuteHandler(T request, CancellationToken cancellationToken);
-
-
-
-
     }
 }

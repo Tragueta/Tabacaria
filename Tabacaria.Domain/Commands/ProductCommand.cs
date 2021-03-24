@@ -4,8 +4,6 @@ using Tabacaria.Foundation.Domain.Entites;
 
 namespace Tabacaria.Domain.Commands
 {
-
-    //public class ProductCommand<T> : IRequest<Response<T>> where T : class
     public class ProductCommand : IRequest<Response>
     {
         public ProductType Type { get; set; }
