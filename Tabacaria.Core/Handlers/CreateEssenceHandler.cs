@@ -2,13 +2,13 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Tabacaria.Domain.Commands;
+using Tabacaria.Core.Commands;
 using Tabacaria.Domain.Entities;
 using Tabacaria.Domain.Interfaces.Repositories;
 using Tabacaria.Foundation.Domain.Entites;
 using Tabacaria.Foundation.Domain.Handler;
 
-namespace Tabacaria.Domain.Handlers
+namespace Tabacaria.Core.Handlers
 {
     public class CreateEssenceHandler : RequestHandlerBase<CreateEssenceCommand>
     {
@@ -25,10 +25,9 @@ namespace Tabacaria.Domain.Handlers
 
         public override async Task<Response> SafeExecuteHandler(CreateEssenceCommand request, CancellationToken cancellationToken)
         {
+            var responseInsert = await _essenceRepository.Insert(_mapper.Map<EssenceEntity>(request));
 
-            var responseInsert = _essenceRepository.Insert(_mapper.Map<EssenceEntity>(request));
-
-            if (responseInsert.Id == 0)
+            if (!responseInsert)
                 throw new Exception("Failed to insert the new essence");
 
             return new Response(true, "Success to insert the new essence", responseInsert);

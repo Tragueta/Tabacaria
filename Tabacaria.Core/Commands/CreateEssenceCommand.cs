@@ -1,6 +1,4 @@
-﻿using Tabacaria.Domain.Entities;
-
-namespace Tabacaria.Domain.Commands
+﻿namespace Tabacaria.Core.Commands
 {
     public class CreateEssenceCommand : ProductCommand
     {

@@ -1,7 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Tabacaria.Domain.Interfaces.Repositories;
 using Tabacaria.Infra.Repositories;
 

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Tabacaria.Domain.Commands;
+using Tabacaria.Core.Commands;
 
-namespace Tabacaria.Domain.Utils.Validators
+namespace Tabacaria.Core.Utils.Validators
 {
     public class EssenceValidator : AbstractValidator<CreateEssenceCommand>
     {

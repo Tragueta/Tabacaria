@@ -1,6 +1,11 @@
 ﻿using AutoFixture;
+using Dapper;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Threading.Tasks;
 using Tabacaria.Domain.Entities;
 using Tabacaria.Domain.Interfaces.Repositories;
 
@@ -8,27 +13,44 @@ namespace Tabacaria.Infra.Repositories
 {
     public class EssenceRepository : IEssenceRepository
     {
-        private Random Random = new Random();
-        private Fixture Fixture = new Fixture();
+        private readonly IConfiguration _configuration;
+        private readonly SqlConnection sqlConnection;
 
-        public EssenceEntity Insert(EssenceEntity request)
+        public EssenceRepository(IConfiguration configuration)
         {
-            return new EssenceEntity()
-            {
-                Id = Random.Next(1, 100),
-                Type = request.Type,
-                Name = request.Name,
-                Description = request.Description,
-                Brand = request.Brand,
-                Value = request.Value,
-                Flavor = request.Flavor,
-                Quantity = request.Quantity
-            };
+            _configuration = configuration;
+            sqlConnection = new SqlConnection(_configuration.GetValue<string>("SqlServer:connectionString"));
         }
 
-        public IEnumerable<EssenceEntity> GetAllEssences()
+        public async Task<bool> Insert(EssenceEntity request)
         {
-            return Fixture.CreateMany<EssenceEntity>(Random.Next(1, 10));
+            var insertEssenceQuery = @"
+                INSERT INTO [dbo].[Essence]
+                    (
+                        Type,
+                        Name,
+                        Description,
+                        Brand,
+                        Value,
+                        Flavor,
+                        Quantity
+                    )
+                VALUES
+                    (
+                        @Type,
+                        @Name,
+                        @Description,
+                        @Brand,
+                        @Value,
+                        @Flavor,
+                        @Quantity 
+                    )";
+
+            var affectedRows = await sqlConnection.ExecuteAsync(insertEssenceQuery, request, commandType: CommandType.Text);
+
+            return affectedRows > 1;
         }
+
+        public IEnumerable<EssenceEntity> GetAllEssences() => sqlConnection.Query<EssenceEntity>("SELECT * FROM [dbo].[Essence]");
     }
 }

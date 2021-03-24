@@ -2,7 +2,7 @@
 using Tabacaria.Domain.Enumerators;
 using Tabacaria.Foundation.Domain.Entites;
 
-namespace Tabacaria.Domain.Commands
+namespace Tabacaria.Core.Commands
 {
     public class ProductCommand : IRequest<Response>
     {

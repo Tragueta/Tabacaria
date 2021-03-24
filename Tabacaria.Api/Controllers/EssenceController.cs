@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Tabacaria.Domain.Commands;
-using Tabacaria.Domain.Queries;
+using Tabacaria.Core.Commands;
+using Tabacaria.Core.Queries;
 using Tabacaria.Foundation.Api.Controller;
 using Tabacaria.Foundation.Domain.Entites;
 

@@ -11,7 +11,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Tabacaria.Domain.Utils.Validators;
+using Tabacaria.Core.Utils.Validators;
 using Tabacaria.Foundation.Api.Configuration;
 using Tabacaria.Infra.Setup;
 

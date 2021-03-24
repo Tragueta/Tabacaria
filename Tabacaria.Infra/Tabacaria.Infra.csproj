@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tabacaria.Domain\Tabacaria.Domain.csproj" />
+    <ProjectReference Include="..\Tabacaria.Foundation.Infra\Tabacaria.Foundation.Infra.csproj" />
   </ItemGroup>
 
 </Project>
