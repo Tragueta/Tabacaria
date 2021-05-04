@@ -1,56 +1,22 @@
-﻿using AutoFixture;
-using Dapper;
-using Microsoft.Extensions.Configuration;
+﻿using Dapper;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 using Tabacaria.Domain.Entities;
+using Tabacaria.Domain.Interfaces.Clients;
 using Tabacaria.Domain.Interfaces.Repositories;
 
 namespace Tabacaria.Infra.Repositories
 {
     public class EssenceRepository : IEssenceRepository
     {
-        private readonly IConfiguration _configuration;
-        private readonly SqlConnection sqlConnection;
+        private readonly IDapperClient _dapperClient;
 
-        public EssenceRepository(IConfiguration configuration)
-        {
-            _configuration = configuration;
-            sqlConnection = new SqlConnection(_configuration.GetValue<string>("SqlServer:connectionString"));
-        }
+        public EssenceRepository(IDapperClient dapperClient) => _dapperClient = dapperClient;
 
-        public async Task<bool> Insert(EssenceEntity request)
-        {
-            var insertEssenceQuery = @"
-                INSERT INTO [dbo].[Essence]
-                    (
-                        Type,
-                        Name,
-                        Description,
-                        Brand,
-                        Value,
-                        Flavor,
-                        Quantity
-                    )
-                VALUES
-                    (
-                        @Type,
-                        @Name,
-                        @Description,
-                        @Brand,
-                        @Value,
-                        @Flavor,
-                        @Quantity 
-                    )";
+        public async Task<bool> Insert(EssenceEntity request) =>  await _dapperClient.InsertAsync(request);
 
-            var affectedRows = await sqlConnection.ExecuteAsync(insertEssenceQuery, request, commandType: CommandType.Text);
-
-            return affectedRows > 1;
-        }
-
-        public IEnumerable<EssenceEntity> GetAllEssences() => sqlConnection.Query<EssenceEntity>("SELECT * FROM [dbo].[Essence]");
+        public IEnumerable<EssenceEntity> GetAllEssences() => _dapperClient.GetAllAsync<EssenceEntity>();
     }
 }

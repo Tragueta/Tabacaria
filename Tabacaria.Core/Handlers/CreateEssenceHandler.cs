@@ -31,7 +31,6 @@ namespace Tabacaria.Core.Handlers
                 throw new Exception("Failed to insert the new essence");
 
             return new Response(true, "Success to insert the new essence", responseInsert);
-
         }
     }
 }

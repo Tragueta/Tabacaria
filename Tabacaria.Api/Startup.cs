@@ -25,6 +25,7 @@ namespace Tabacaria.Api
             services.AddApiBehaviorConfiguration();
             services.AddAutoMapper(typeof(Startup));
 
+            services.AddClientsDependency();
             services.AddRepositoriesDependency();
 
             var assemblies = Assembly.GetExecutingAssembly().GetReferencedAssemblies().Select((item) => Assembly.Load(item)).ToArray();

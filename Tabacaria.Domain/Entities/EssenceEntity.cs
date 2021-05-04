@@ -1,10 +1,11 @@
-﻿using Tabacaria.Domain.Enumerators;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Tabacaria.Domain.Enumerators;
 
 namespace Tabacaria.Domain.Entities
 {
-    public class EssenceEntity
+    [Table("Essence")]
+    public class EssenceEntity : BaseEntity
     {
-        public int Id { get; set; }
         public ProductType Type { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -12,6 +13,5 @@ namespace Tabacaria.Domain.Entities
         public decimal Value { get; set; }
         public string Flavor { get; set; }
         public int Quantity { get; set; }
-
     }
 }
