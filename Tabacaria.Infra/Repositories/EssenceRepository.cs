@@ -1,22 +1,21 @@
-﻿using Dapper;
-using System;
+﻿using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Tabacaria.Domain.Entities;
 using Tabacaria.Domain.Interfaces.Clients;
 using Tabacaria.Domain.Interfaces.Repositories;
+using Tabacaria.Infra.Clients;
 
 namespace Tabacaria.Infra.Repositories
 {
     public class EssenceRepository : IEssenceRepository
     {
-        private readonly IDapperClient _dapperClient;
+        private readonly IBaseRepository _baseRepository;
 
-        public EssenceRepository(IDapperClient dapperClient) => _dapperClient = dapperClient;
+        public EssenceRepository(IBaseRepository baseRepository) => _baseRepository = baseRepository;
 
-        public async Task<bool> Insert(EssenceEntity request) =>  await _dapperClient.InsertAsync(request);
+        public async Task<bool> Insert(EssenceEntity request) => await _baseRepository.InsertAsync(request);
 
-        public IEnumerable<EssenceEntity> GetAllEssences() => _dapperClient.GetAllAsync<EssenceEntity>();
+        public IEnumerable<EssenceEntity> GetAllEssences() => _baseRepository.GetAllAsync<EssenceEntity>();
     }
 }

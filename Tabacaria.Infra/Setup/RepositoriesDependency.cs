@@ -8,6 +8,7 @@ namespace Tabacaria.Infra.Setup
     {
         public static IServiceCollection AddRepositoriesDependency(this IServiceCollection services)
         {
+            services.AddScoped<IBaseRepository, BaseRepository>();
             services.AddScoped<IEssenceRepository, EssenceRepository>();
 
             return services;

@@ -2,9 +2,11 @@
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Tabacaria.Domain.Interfaces.Clients;
 
@@ -17,15 +19,13 @@ namespace Tabacaria.Infra.Clients
 
         public DapperClient(IConfiguration configuration)
         {
-            // TODO: Pensar em como o DapperClient podeia receber a connectionString de modo que ele fique genérico
-            //       e o mesmo client possa ser usado para N SQL Connections
             _configuration = configuration;
-            sqlConnection = new SqlConnection(_configuration.GetValue<string>("SqlServer:connectionString"));
+            sqlConnection = new SqlConnection(_configuration.GetConnectionString("Tabacaria"));
         }
 
         public async Task<bool> InsertAsync<T>(T entity)
         {
-            var properties = entity.GetType().GetProperties().AsList().Select(x => x.Name);
+            var properties = GetPropertiesName(entity);
 
             var sql = @$"INSERT INTO [dbo].[{ GetTableName(typeof(T)) }] ( { string.Join(", ", properties) } )
                             VALUES ( @{ string.Join(", @", properties) } )";
@@ -41,7 +41,18 @@ namespace Tabacaria.Infra.Clients
         {
             dynamic classTableAttribute = type.GetCustomAttributes(false).SingleOrDefault(attr => attr.GetType().Name == "TableAttribute");
 
-            return classTableAttribute.Name;
+            return classTableAttribute.Name ?? type.Name;
+        }
+
+        private IList<string> GetPropertiesName<T>(T entity)
+        {
+            IList<string> entityColumns = new List<string>();
+
+            var properties = entity.GetType().GetProperties().AsList();
+
+            properties.ForEach(x => { entityColumns.Add(x.GetCustomAttribute<ColumnAttribute>()?.Name ?? x.Name); });
+
+            return entityColumns;
         }
     }
 }
