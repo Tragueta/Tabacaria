@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using System;
-using Tabacaria.Domain.Commands;
+using Tabacaria.Core.Commands;
 using Tabacaria.Domain.Entities;
 
 namespace Tabacaria.Api.Mappers

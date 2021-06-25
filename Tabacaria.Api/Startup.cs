@@ -1,15 +1,19 @@
 using AutoMapper;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Product.Foundation.Api.Configuration;
 using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Tabacaria.Core.Utils.Validators;
+using Tabacaria.Foundation.Api.Configuration;
+using Tabacaria.Infra.Setup;
 
 namespace Tabacaria.Api
 {
@@ -17,11 +21,19 @@ namespace Tabacaria.Api
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddApiBehaviorConfiguration();
-            services.AddDependencyInjection();
-            services.AddFluentValidationCulture("us");
 
+            services.AddApiBehaviorConfiguration();
             services.AddAutoMapper(typeof(Startup));
+
+            services.AddClientsDependency();
+            services.AddRepositoriesDependency();
+
+            var assemblies = Assembly.GetExecutingAssembly().GetReferencedAssemblies().Select((item) => Assembly.Load(item)).ToArray();
+            assemblies = assemblies.Where(a => a.GetName().Name.StartsWith("Tabacaria")).ToArray();
+            services.AddMediatR(assemblies);
+
+            services.AddControllers().AddFluentValidation(f => f.RegisterValidatorsFromAssemblyContaining<EssenceValidator>());
+            services.AddFluentValidationCulture("us");
 
             services.AddSwaggerGen(options =>
             {

@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-using Tabacaria.Domain.Commands;
+using Tabacaria.Core.Commands;
 
-namespace Tabacaria.Domain.Utils.Validators
+namespace Tabacaria.Core.Utils.Validators
 {
-    public class RemoverTesteValidator : AbstractValidator<RemoverTesteComando>
+    public class EssenceValidator : AbstractValidator<CreateEssenceCommand>
     {
-        public RemoverTesteValidator()
+        public EssenceValidator()
         {
             RuleFor(x => x.Type).NotNull();
 
@@ -17,7 +17,9 @@ namespace Tabacaria.Domain.Utils.Validators
 
             RuleFor(x => x.Value).GreaterThan(0);
 
-            RuleFor(x => x.RemoverTeste).GreaterThan(0);
+            RuleFor(x => x.Flavor).NotEmpty();
+
+            RuleFor(x => x.Quantity).GreaterThan(0);
         }
     }
 }

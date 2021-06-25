@@ -1,34 +1,21 @@
-﻿using AutoFixture;
-using System;
+﻿using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Tabacaria.Domain.Entities;
+using Tabacaria.Domain.Interfaces.Clients;
 using Tabacaria.Domain.Interfaces.Repositories;
+using Tabacaria.Infra.Clients;
 
 namespace Tabacaria.Infra.Repositories
 {
     public class EssenceRepository : IEssenceRepository
     {
-        private Random Random = new Random();
-        private Fixture Fixture = new Fixture();
+        private readonly IBaseRepository _baseRepository;
 
-        public EssenceEntity Insert(EssenceEntity request)
-        {
-            return new EssenceEntity()
-            {
-                Id = Random.Next(1, 100),
-                Type = request.Type,
-                Name = request.Name,
-                Description = request.Description,
-                Brand = request.Brand,
-                Value = request.Value,
-                Flavor = request.Flavor,
-                Quantity = request.Quantity
-            };
-        }
+        public EssenceRepository(IBaseRepository baseRepository) => _baseRepository = baseRepository;
 
-        public IEnumerable<EssenceEntity> GetAllEssences()
-        {
-            return Fixture.CreateMany<EssenceEntity>(Random.Next(1, 10));
-        }
+        public async Task<bool> Insert(EssenceEntity request) => await _baseRepository.InsertAsync(request);
+
+        public IEnumerable<EssenceEntity> GetAllEssences() => _baseRepository.GetAllAsync<EssenceEntity>();
     }
 }

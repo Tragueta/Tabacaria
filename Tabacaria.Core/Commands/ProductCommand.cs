@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Tabacaria.Domain.Enumerators;
-using Tabacaria.Domain.Utils.HttpUtils;
+using Tabacaria.Foundation.Domain.Entites;
 
-namespace Tabacaria.Domain.Commands
+namespace Tabacaria.Core.Commands
 {
-    public class ProductCommand<T> : IRequest<Response<T>> where T : class
+    public class ProductCommand : IRequest<Response>
     {
         public ProductType Type { get; set; }
         public string Name { get; set; }

@@ -14,8 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Product.Foundation.Api\Product.Foundation.Api.csproj" />
-    <ProjectReference Include="..\Tabacaria.Domain\Tabacaria.Domain.csproj" />
+    <ProjectReference Include="..\Product.Foundation.Api\Tabacaria.Foundation.Api.csproj" />
+    <ProjectReference Include="..\Product.Foundation.Domain\Tabacaria.Foundation.Domain.csproj" />
+    <ProjectReference Include="..\Tabacaria.Core\Tabacaria.Core.csproj" />
     <ProjectReference Include="..\Tabacaria.Infra\Tabacaria.Infra.csproj" />
   </ItemGroup>
 

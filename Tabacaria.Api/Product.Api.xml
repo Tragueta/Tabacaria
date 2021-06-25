@@ -4,12 +4,5 @@
         <name>Product.Api</name>
     </assembly>
     <members>
-        <member name="M:Tabacaria.Api.Controllers.EssenceController.CreateEssence(Tabacaria.Domain.Commands.CreateEssenceCommand)">
-            <summary>
-            Insert an essence
-            </summary>
-            <param name="request"></param>
-            <returns></returns>
-        </member>
     </members>
 </doc>

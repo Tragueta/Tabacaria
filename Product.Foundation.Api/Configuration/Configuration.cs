@@ -1,18 +1,12 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;
 using System.Linq;
-using System.Reflection;
-using Tabacaria.Domain.Handlers;
-using Tabacaria.Domain.Interfaces.Repositories;
-using Tabacaria.Domain.Utils.HttpUtils;
-using Tabacaria.Domain.Utils.Validators;
-using Tabacaria.Infra.Repositories;
+using Tabacaria.Foundation.Domain.Entites;
 
-namespace Product.Foundation.Api.Configuration
+namespace Tabacaria.Foundation.Api.Configuration
 {
     public static class Configuration
     {
@@ -32,7 +26,7 @@ namespace Product.Foundation.Api.Configuration
                             .SelectMany(x => x)
                             .ToList();
 
-                            return new BadRequestObjectResult(new Response<dynamic>(false, "error", errors));
+                            return new BadRequestObjectResult(new Response(false, "error", errors));
                         };
                     })
                     .AddFluentValidation();
@@ -40,20 +34,8 @@ namespace Product.Foundation.Api.Configuration
             return services;
         }
 
-        public static IServiceCollection AddDependencyInjection(this IServiceCollection services)
-        {
-            services.AddMediatR(Assembly.GetAssembly(typeof(CreateEssenceHandler)));
-            services.AddScoped<IEssenceRepository, EssenceRepository>();
-            AddValidationsInjection(services);
+        public static void AddFluentValidationCulture(this IServiceCollection services, string culture)
+            => ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo(culture);
 
-            return services;
-        }
-
-        public static void AddFluentValidationCulture(this IServiceCollection services, string culture) => ValidatorOptions.LanguageManager.Culture = new CultureInfo(culture);
-
-        private static void AddValidationsInjection(IServiceCollection services)
-        {
-            services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<BaseValidator<EssenceValidator>>());
-        }
     }
 }

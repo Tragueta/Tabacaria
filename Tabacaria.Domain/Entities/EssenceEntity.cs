@@ -1,17 +1,30 @@
-﻿using Tabacaria.Domain.Enumerators;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Tabacaria.Domain.Enumerators;
 
 namespace Tabacaria.Domain.Entities
 {
-    public class EssenceEntity
+    [Table("Essence")]
+    public class EssenceEntity : BaseEntity
     {
-        public int Id { get; set; }
+        [Column("Type")]
         public ProductType Type { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string Brand { get; set; }
-        public decimal Value { get; set; }
-        public string Flavor { get; set; }
-        public int Quantity { get; set; }
 
+        [Column("Name")]
+        public string Name { get; set; }
+
+        [Column("Description")]
+        public string Description { get; set; }
+
+        [Column("Brand")]
+        public string Brand { get; set; }
+
+        [Column("Value")]
+        public decimal Value { get; set; }
+
+        [Column("Flavor")]
+        public string Flavor { get; set; }
+
+        [Column("Quantity")]
+        public int Quantity { get; set; }
     }
 }

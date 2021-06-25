@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tabacaria.Domain\Tabacaria.Domain.csproj" />
+    <ProjectReference Include="..\Tabacaria.Foundation.Infra\Tabacaria.Foundation.Infra.csproj" />
   </ItemGroup>
 
 </Project>
